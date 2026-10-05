@@ -1,28 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PointModifierData", menuName = "Scriptable Objects/CoinData" , order = 1)]
+[CreateAssetMenu(menuName = "Coin/CoinData" , order = 1)]
 public class CoinData : ScriptableObject
 {
-    public bool head;
-    public int chanceForHead = 2;
-    public List<ScriptableObject> headEffects, tailEffects;
+    //the name of the coin
+    public string CoinName;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            int randomNumber = Random.Range(0, 3);
-            if (randomNumber >= chanceForHead)
-            {
-                head = true;
-                Debug.Log("Coin Landed Heads");
-            }
-            else
-            {
-                head = false;
-                Debug.Log("Coin Landed Tails");
-            }
-        }
-    }
+    //sprite for when in lands on heads or tails
+    public Sprite HeadsSprite;
+    public Sprite TailsSprite;
+
+    //the effect that happens when the coin lands on heads or tail
+    public CoinSide Heads;
+    public CoinSide Tails;
+}
+
+[System.Serializable]
+public class CoinSide : MonoBehaviour
+{
+    //basic vakye of this side of the coin
+    public int Value;
+
+    //extra effects
+    public List<CoinEffect> Effects;
 }
