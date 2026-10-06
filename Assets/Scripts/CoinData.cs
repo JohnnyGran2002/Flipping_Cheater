@@ -17,7 +17,7 @@ public class CoinData : ScriptableObject
 }
 
 [System.Serializable]
-public class CoinSide : MonoBehaviour
+public class CoinSide
 {
     //basic vakye of this side of the coin
     public int Value;

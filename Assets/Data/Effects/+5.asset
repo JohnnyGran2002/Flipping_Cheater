@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40c5d41ccdbec1349aafdd927c8d000e, type: 3}
-  m_Name: +5Points
-  m_EditorClassIdentifier: Assembly-CSharp::PointModifierData
-  points: 5
-  pointTracker: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: eb1076b5f07a2b04dbb438d7cfc4366c, type: 3}
+  m_Name: +5
+  m_EditorClassIdentifier: Assembly-CSharp::AddEffect
+  amount: 0

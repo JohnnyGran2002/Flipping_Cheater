@@ -1,43 +1,53 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PointCalculator : MonoBehaviour
 {
     //calculate a combatant´s score
     public int Calculate(CombatantState owner, CombatantState opponent)
     {
-        //create the points text
-        PointContext context = new PointContext();
-
-        context.Owner = owner;
-        context.Opponent = opponent;
-
         //start at 0
-        context.Points = 0;
+        int points = 0;
 
-        //procces the coins from left to right
-        for(int i = 0; i < context.Points; i++)
+        //go through all the coins from left to right
+        for (int i = 0; i < owner.Coins.Count; i++)
         {
             Coin coin = owner.Coins[i];
 
-            //store current coin data
-            context.CoinIndex = i;
-            context.CurrentCoin = coin;
+            //make sure the coin have been flipped
+            if (coin.CurrentSide == null)
+            {
+                continue;
+            }
 
-            //add the coin's base value
-            context.Points += coin.CurrentSide.Value;
+            //add the coin´s base value
+            points += coin.CurrentSide.Value;
 
-            //apply the side's effect
-            if(coin.CurrentSide.Effects != null)
+            //apply the coins effects
+            if (coin.CurrentSide.Effects != null)
             {
                 foreach (CoinEffect effect in coin.CurrentSide.Effects)
                 {
+                    PointContext context = new PointContext();
+
+                    //set up the context
+                    context.Points = points;
+                    context.CoinIndex = i;
+                    context.CurrentCoin = coin;
+                    context.Owner = owner;
+                    context.Opponent = opponent;
+
+                    //apply the effect
                     effect.Apply(context);
+
+                    //get the modified points back
+                    points = context.Points;
                 }
             }
         }
 
-        //return the final score
-        return context.Points;
+        //return the final points
+        return points;
     }
 }

@@ -4,10 +4,16 @@ using UnityEngine.InputSystem.LowLevel;
 public class GameManager : MonoBehaviour
 {
     //current game state
-    public GameState GameState {  get; private set; }
+    public GameState GameState { get; private set; }
 
     //calcutates points
     private PointCalculator _pointCalculator;
+
+    //Temp Test
+    [SerializeField] private CoinData playerCoin1;
+    [SerializeField] private CoinData playerCoin2;
+    [SerializeField] private CoinData opponentCoin1;
+    [SerializeField] private CoinData opponentCoin2;
 
     private void Awake()
     {
@@ -22,6 +28,24 @@ public class GameManager : MonoBehaviour
 
         //create the point calculator
         _pointCalculator = new PointCalculator();
+
+        //Temp Test
+        SetupTestCoins();
+    }
+
+    private void Start()
+    {
+        StartEncounter();
+    }
+
+    //Temp Test
+    private void SetupTestCoins()
+    {
+        GameState.Player.Coins.Add(new Coin(playerCoin1));
+        GameState.Player.Coins.Add(new Coin(playerCoin2));
+
+        GameState.opponent.Coins.Add(new Coin(opponentCoin1));
+        GameState.opponent.Coins.Add(new Coin(opponentCoin2));
     }
 
     //start an encounter
@@ -45,10 +69,15 @@ public class GameManager : MonoBehaviour
         foreach (Coin coin in GameState.opponent.Coins)
         {
             coin.Flip();
+
+            Debug.Log("NPC coin flipped. Value: " + coin.CurrentSide.Value);
         }
 
         //calculate opponent´s points
         GameState.opponent.Points = _pointCalculator.Calculate(GameState.opponent, GameState.Player);
+
+        //Temp Test
+        Debug.Log("Opponent Points: " + GameState.opponent.Points);
 
         //move on to player phase
         StartPlayerPhase();
@@ -66,6 +95,8 @@ public class GameManager : MonoBehaviour
     {
         //calculate player´s finalscore
         GameState.Player.Points = _pointCalculator.Calculate(GameState.Player, GameState.opponent);
+
+        Debug.Log("Player Points: " + GameState.Player.Points);
 
         //finish the encounter
         FinishEncounter();
@@ -97,5 +128,12 @@ public class GameManager : MonoBehaviour
         {
             passive.OnEncounterStart(GameState);
         }
+    }
+
+    //Temp Test
+    [ContextMenu("Start Encounter")]
+    private void TestStartEncounter()
+    {
+        StartEncounter();
     }
 }
