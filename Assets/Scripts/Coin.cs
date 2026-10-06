@@ -4,8 +4,10 @@ public class Coin
 {
     //coin´s data
     public CoinData Data { get; private set; }
+
     //the side currently showing
     public CoinSide CurrentSide { get; private set; }
+
     //chance of landing on heads(0 = 0% and 1 = 100%)
     public float HeadsChance { get; private set; } = 0.5f;
 
