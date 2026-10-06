@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d211b8a186483234e87d5e5844a953b4, type: 3}
   m_Name: BasicCoin
   m_EditorClassIdentifier: Assembly-CSharp::CoinData
-  head: 0
-  chanceForHead: 2
-  headEffects: []
-  tailEffects: []
+  CoinName: Basic Coin
+  HeadsSprite: {fileID: 475848685, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
+  TailsSprite: {fileID: 628902250, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
+  Heads:
+    Value: 5
+    Effects: []
+  Tails:
+    Value: 1
+    Effects: []
