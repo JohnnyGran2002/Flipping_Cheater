@@ -35,4 +35,19 @@ public class Coin
         //clamps the value between 0 and 1
         HeadsChance = Mathf.Clamp01(chance);
     }
+
+    //decide wich side the coin should be on
+    public void SetSide(bool heads)
+    {
+        //set the coin to heads
+        if (!heads)
+        {
+            CurrentSide = Data.Heads;
+        }
+        //set the coin to tails
+        else
+        {
+            CurrentSide = Data.Tails;
+        }
+    }
 }

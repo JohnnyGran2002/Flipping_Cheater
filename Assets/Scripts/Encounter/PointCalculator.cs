@@ -2,20 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-public class PointCalculator : MonoBehaviour
+public class PointCalculator
 {
-    //calculate a combatant´s score
-    public int Calculate(CombatantState owner, CombatantState opponent)
+    //calculate a score from a board of coins
+    public int Calculate(List<Coin> board, CombatantState owner, CombatantState opponent)
     {
         //start at 0
         int points = 0;
 
         //go through all the coins from left to right
-        for (int i = 0; i < owner.Coins.Count; i++)
+        for (int i = 0; i < board.Count; i++)
         {
-            Coin coin = owner.Coins[i];
+            Coin coin = board[i];
 
-            //make sure the coin have been flipped
+            //ignore coins that have not been flipped
             if (coin.CurrentSide == null)
             {
                 continue;

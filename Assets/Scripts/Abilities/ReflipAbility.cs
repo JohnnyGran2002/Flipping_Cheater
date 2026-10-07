@@ -7,9 +7,9 @@ public class ReflipAbility : Ability
     {
         if (state.Phase != EncounterPhase.PlayerPhase) return;
 
-        if (state.Player.Coins.Count == 0) return;
+        if (state.Player.Board.Count == 0) return;
 
         //reflip the first coinf for now, change to being able to select later
-        state.Player.Coins[0].Flip();
+        state.Player.Board[0].Flip();
     }
 }

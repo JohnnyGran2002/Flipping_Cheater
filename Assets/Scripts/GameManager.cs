@@ -1,3 +1,5 @@
+using NUnit.Framework.Constraints;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -9,11 +11,14 @@ public class GameManager : MonoBehaviour
     //calcutates points
     private PointCalculator _pointCalculator;
 
+    public PlayerBoard playerBoard {  get; private set; }
+    public OpponentBoard opponentBoard { get; private set; }
+
     //Temp Test
-    [SerializeField] private CoinData playerCoin1;
-    [SerializeField] private CoinData playerCoin2;
-    [SerializeField] private CoinData opponentCoin1;
-    [SerializeField] private CoinData opponentCoin2;
+    [SerializeField] private CoinData playerCoin1Data;
+    [SerializeField] private CoinData playerCoin2Data;
+    [SerializeField] private CoinData opponentCoin1Data;
+    [SerializeField] private CoinData opponentCoin2Data;
 
     private void Awake()
     {
@@ -24,10 +29,14 @@ public class GameManager : MonoBehaviour
         GameState.Player = new PlayerState();
 
         //create the NPC
-        GameState.opponent = new NPCState();
+        GameState.Opponent = new NPCState();
 
         //create the point calculator
         _pointCalculator = new PointCalculator();
+
+        //create the board system
+        playerBoard = new PlayerBoard(GameState.Player, GameState.PlayerEncounter);
+        opponentBoard = new OpponentBoard(GameState.Opponent);
 
         //Temp Test
         SetupTestCoins();
@@ -41,11 +50,22 @@ public class GameManager : MonoBehaviour
     //Temp Test
     private void SetupTestCoins()
     {
-        GameState.Player.Coins.Add(new Coin(playerCoin1));
-        GameState.Player.Coins.Add(new Coin(playerCoin2));
+        //create player's coins
+        Coin playerCoin1 = new Coin(playerCoin1Data);
+        Coin playerCoin2 = new Coin(playerCoin2Data);
 
-        GameState.opponent.Coins.Add(new Coin(opponentCoin1));
-        GameState.opponent.Coins.Add(new Coin(opponentCoin2));
+        //Add player coins to inventory
+        GameState.Player.CoinInventory.Add(playerCoin1);
+        GameState.Player.CoinInventory.Add(playerCoin2);
+
+        //create opponent's coins
+        Coin opponentCoin1 = new Coin(opponentCoin1Data);
+        Coin opponentCoin2 = new Coin(opponentCoin2Data);
+
+        //add opponent's coins to the board
+        GameState.Opponent.BoardCoins.Add(opponentCoin1);
+        GameState.Opponent.BoardCoins.Add(opponentCoin2);
+
     }
 
     //start an encounter
@@ -60,13 +80,25 @@ public class GameManager : MonoBehaviour
         StartNPCPhase();
     }
 
+    private void StartPlayerEncounter()
+    {
+        //creates a temporary state for the encounter
+        GameState.PlayerEncounter = new PlayerEncounterState();
+
+        //copy the player's real/permanent inventory into the temporary encounter inventory
+        foreach (Coin coin in GameState.Player.CoinInventory)
+        {
+            GameState.PlayerEncounter.AvailableCoins.Add(coin);
+        }
+    }
+
     //the opponent flips all their coins
     private void StartNPCPhase()
     {
         GameState.Phase = EncounterPhase.NPCPhase;
 
         //flip every opponent coin
-        foreach (Coin coin in GameState.opponent.Coins)
+        foreach (Coin coin in GameState.Opponent.BoardCoins)
         {
             coin.Flip();
 
@@ -74,10 +106,10 @@ public class GameManager : MonoBehaviour
         }
 
         //calculate opponent´s points
-        GameState.opponent.Points = _pointCalculator.Calculate(GameState.opponent, GameState.Player);
+        GameState.Opponent.Points = _pointCalculator.Calculate(GameState.Opponent.BoardCoins, GameState.Opponent, GameState.Player);
 
         //Temp Test
-        Debug.Log("Opponent Points: " + GameState.opponent.Points);
+        Debug.Log("Opponent Points: " + GameState.Opponent.Points);
 
         //move on to player phase
         StartPlayerPhase();
@@ -94,7 +126,7 @@ public class GameManager : MonoBehaviour
     public void FinishPlayerPhase()
     {
         //calculate player´s finalscore
-        GameState.Player.Points = _pointCalculator.Calculate(GameState.Player, GameState.opponent);
+        GameState.Player.Points = _pointCalculator.Calculate(GameState.PlayerEncounter.BoardCoins, GameState.Player, GameState.Opponent);
 
         Debug.Log("Player Points: " + GameState.Player.Points);
 
@@ -106,7 +138,7 @@ public class GameManager : MonoBehaviour
     {
         GameState.Phase = EncounterPhase.Finished;
 
-        if (GameState.Player.Points > GameState.opponent.Points)
+        if (GameState.Player.Points > GameState.Opponent.Points)
         {
             Debug.Log("Player Won!");
         }
@@ -124,16 +156,9 @@ public class GameManager : MonoBehaviour
             passive.OnEncounterStart(GameState);
         }
 
-        foreach (Passive passive in GameState.opponent.Passives)
+        foreach (Passive passive in GameState.Opponent.Passives)
         {
             passive.OnEncounterStart(GameState);
         }
-    }
-
-    //Temp Test
-    [ContextMenu("Start Encounter")]
-    private void TestStartEncounter()
-    {
-        StartEncounter();
     }
 }
