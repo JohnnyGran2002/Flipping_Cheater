@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Coin Effects/Multiply", order = 2)]
+[CreateAssetMenu(menuName = "Scriptable Objects/Coin Effects/Multiply")]
 public class MultiplyEffect : CoinEffect
 {
     public int multiplier;

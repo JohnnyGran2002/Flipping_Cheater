@@ -1,15 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/Reflip", order = 1)]
+[CreateAssetMenu(menuName = "Scriptable Objects/Abilities/Reflip")]
 public class ReflipAbility : Ability
 {
     public override void Execute(GameState state)
     {
         if (state.Phase != EncounterPhase.PlayerPhase) return;
 
-        if (state.Player.Board.Count == 0) return;
+        if (state.PlayerEncounter.BoardCoins.Count == 0) return;
 
         //reflip the first coinf for now, change to being able to select later
-        state.Player.Board[0].Flip();
+        state.PlayerEncounter.BoardCoins[0].Flip();
     }
 }

@@ -148,10 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c360502b4d40e4ab6cde4a49e793d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  playerCoin1: {fileID: 11400000, guid: 60496e5ffd3ccff44b120ea28e5ab356, type: 2}
-  playerCoin2: {fileID: 11400000, guid: 60496e5ffd3ccff44b120ea28e5ab356, type: 2}
-  opponentCoin1: {fileID: 11400000, guid: 60496e5ffd3ccff44b120ea28e5ab356, type: 2}
-  opponentCoin2: {fileID: 11400000, guid: 60496e5ffd3ccff44b120ea28e5ab356, type: 2}
+  playerCoin1Data: {fileID: 11400000, guid: 60496e5ffd3ccff44b120ea28e5ab356, type: 2}
+  playerCoin2Data: {fileID: 11400000, guid: 7a61e3750e1758e45945049bc26efff0, type: 2}
+  opponentCoin1Data: {fileID: 11400000, guid: 60496e5ffd3ccff44b120ea28e5ab356, type: 2}
+  opponentCoin2Data: {fileID: 11400000, guid: 7a61e3750e1758e45945049bc26efff0, type: 2}
 --- !u!4 &77800796
 Transform:
   m_ObjectHideFlags: 0

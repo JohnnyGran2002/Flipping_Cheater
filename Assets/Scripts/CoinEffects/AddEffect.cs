@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Coin Effects/Add", order = 1)]
+[CreateAssetMenu(menuName = "Scriptable Objects/Coin Effects/Add")]
 public class AddEffect : CoinEffect
 {
     public int amount;

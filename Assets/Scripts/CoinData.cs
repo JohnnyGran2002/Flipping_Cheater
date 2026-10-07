@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Coin/CoinData" , order = 1)]
+[CreateAssetMenu(menuName = "Scriptable Objects/Coin")]
 public class CoinData : ScriptableObject
 {
     //the name of the coin

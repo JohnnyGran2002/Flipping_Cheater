@@ -16,8 +16,8 @@ MonoBehaviour:
   HeadsSprite: {fileID: 0}
   TailsSprite: {fileID: 0}
   Heads:
-    Value: 0
+    Value: 6
     Effects: []
   Tails:
-    Value: 0
+    Value: 3
     Effects: []
