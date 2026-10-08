@@ -10,4 +10,9 @@ public class AddEffect : CoinEffect
         //add amount to points
         context.Points += amount;
     }
+
+    public override string GetDescription()
+    {
+        return "+" + amount;
+    }
 }

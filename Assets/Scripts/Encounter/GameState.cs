@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class GameState : MonoBehaviour
+public class GameState
 {
     //the player
     public PlayerState Player;

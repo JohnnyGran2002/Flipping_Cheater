@@ -10,4 +10,9 @@ public class MultiplyEffect : CoinEffect
         //multiply with points
         context.Points *= multiplier;
     }
+
+    public override string GetDescription()
+    {
+        return "x" + multiplier;
+    }
 }

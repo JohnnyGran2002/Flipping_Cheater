@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
     //calcutates points
     private PointCalculator _pointCalculator;
 
-    public PlayerBoard playerBoard {  get; private set; }
-    public OpponentBoard opponentBoard { get; private set; }
+    public PlayerBoard PlayerBoard { get; private set; }
+    public OpponentBoard OpponentBoard { get; private set; }
+
+    [SerializeField] private GameUI _gameUI;
 
     //Temp Test
     [SerializeField] private CoinData playerCoin1Data;
@@ -22,8 +24,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("GameManager Awake. Instance: " + GetInstanceID());
         //creat the game state
         GameState = new GameState();
+
+        Debug.Log("GameState created: " + (GameState == null ? "NULL" : "VALID"));
 
         //create the player
         GameState.Player = new PlayerState();
@@ -35,8 +40,7 @@ public class GameManager : MonoBehaviour
         _pointCalculator = new PointCalculator();
 
         //create the board system
-        playerBoard = new PlayerBoard(GameState.Player, GameState.PlayerEncounter);
-        opponentBoard = new OpponentBoard(GameState.Opponent);
+        OpponentBoard = new OpponentBoard(GameState.Opponent);
 
         //Temp Test
         SetupTestCoins();
@@ -92,6 +96,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     //the opponent flips all their coins
     private void StartNPCPhase()
     {
@@ -101,25 +106,50 @@ public class GameManager : MonoBehaviour
         foreach (Coin coin in GameState.Opponent.BoardCoins)
         {
             coin.Flip();
-
-            Debug.Log("NPC coin flipped. Value: " + coin.CurrentSide.Value);
         }
 
         //calculate opponent´s points
         GameState.Opponent.Points = _pointCalculator.Calculate(GameState.Opponent.BoardCoins, GameState.Opponent, GameState.Player);
 
-        //Temp Test
-        Debug.Log("Opponent Points: " + GameState.Opponent.Points);
+        Debug.Log("NPC Phase sending GameState: " + (GameState == null ? "NULL" : "VALID"));
+        _gameUI.UpdateUI(GameState);
 
         //move on to player phase
         StartPlayerPhase();
     }
+
+
 
     //start the player´s phase
     private void StartPlayerPhase()
     {
         //the player can now flip coins and use abilities
         GameState.Phase = EncounterPhase.PlayerPhase;
+
+        //creates a temporary state for the encounter
+        GameState.PlayerEncounter = new PlayerEncounterState();
+
+        //copy the player's real/permanent inventory into the temporary encounter inventory
+        foreach (Coin coin in GameState.Player.CoinInventory)
+        {
+            GameState.PlayerEncounter.AvailableCoins.Add(coin);
+        }
+
+        Debug.Log("Available coins: " + GameState.PlayerEncounter.AvailableCoins.Count);
+
+        //create the player's board system
+        PlayerBoard = new PlayerBoard(GameState.Player, GameState.PlayerEncounter);
+
+        //give game UI access to the board
+        _gameUI.SetupPlayerBoard(PlayerBoard);
+
+        //give game UI acces to the GameManager
+        _gameUI.Setup(this);
+
+
+        Debug.Log("Player Phase sending GameState: " + (GameState == null ? "NULL" : "VALID"));
+        //update the UI
+        _gameUI.UpdateUI(GameState);
     }
 
     //when player is finished
@@ -127,6 +157,8 @@ public class GameManager : MonoBehaviour
     {
         //calculate player´s finalscore
         GameState.Player.Points = _pointCalculator.Calculate(GameState.PlayerEncounter.BoardCoins, GameState.Player, GameState.Opponent);
+
+        _gameUI.UpdateUI(GameState);
 
         Debug.Log("Player Points: " + GameState.Player.Points);
 
