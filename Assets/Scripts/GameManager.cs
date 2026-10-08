@@ -19,8 +19,15 @@ public class GameManager : MonoBehaviour
     //Temp Test
     [SerializeField] private CoinData playerCoin1Data;
     [SerializeField] private CoinData playerCoin2Data;
+    [SerializeField] private CoinData playerCoin3Data;
+    [SerializeField] private CoinData playerCoin4Data;
+    [SerializeField] private CoinData playerCoin5Data;
+
     [SerializeField] private CoinData opponentCoin1Data;
     [SerializeField] private CoinData opponentCoin2Data;
+    [SerializeField] private CoinData opponentCoin3Data;
+    [SerializeField] private CoinData opponentCoin4Data;
+    [SerializeField] private CoinData opponentCoin5Data;
 
     private void Awake()
     {
@@ -54,18 +61,30 @@ public class GameManager : MonoBehaviour
         //create player's coins
         Coin playerCoin1 = new Coin(playerCoin1Data);
         Coin playerCoin2 = new Coin(playerCoin2Data);
+        Coin playerCoin3 = new Coin(playerCoin3Data);
+        Coin playerCoin4 = new Coin(playerCoin4Data);
+        Coin playerCoin5 = new Coin(playerCoin5Data);
 
         //Add player coins to inventory
         GameState.Player.CoinInventory.Add(playerCoin1);
         GameState.Player.CoinInventory.Add(playerCoin2);
+        GameState.Player.CoinInventory.Add(playerCoin3);
+        GameState.Player.CoinInventory.Add(playerCoin4);
+        GameState.Player.CoinInventory.Add(playerCoin5);
 
         //create opponent's coins
         Coin opponentCoin1 = new Coin(opponentCoin1Data);
         Coin opponentCoin2 = new Coin(opponentCoin2Data);
+        Coin opponentCoin3 = new Coin(opponentCoin3Data);
+        Coin opponentCoin4 = new Coin(opponentCoin4Data);
+        Coin opponentCoin5 = new Coin(opponentCoin5Data);
 
         //add opponent's coins to the board
         GameState.Opponent.BoardCoins.Add(opponentCoin1);
         GameState.Opponent.BoardCoins.Add(opponentCoin2);
+        GameState.Opponent.BoardCoins.Add(opponentCoin3);
+        GameState.Opponent.BoardCoins.Add(opponentCoin4);
+        GameState.Opponent.BoardCoins.Add(opponentCoin5);
 
     }
 

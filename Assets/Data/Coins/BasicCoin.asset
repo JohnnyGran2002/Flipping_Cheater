@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BasicCoin
   m_EditorClassIdentifier: Assembly-CSharp::CoinData
   CoinName: Basic Coin
+  neutralSprite: {fileID: 475848685, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
   HeadsSprite: {fileID: 475848685, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
   TailsSprite: {fileID: 628902250, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
   Heads:

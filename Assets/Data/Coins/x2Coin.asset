@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d211b8a186483234e87d5e5844a953b4, type: 3}
-  m_Name: BetterCoin
+  m_Name: x2Coin
   m_EditorClassIdentifier: Assembly-CSharp::CoinData
-  CoinName: BetterCoin
-  neutralSprite: {fileID: 1622185602, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
-  HeadsSprite: {fileID: 1622185602, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
-  TailsSprite: {fileID: -1771045000, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
+  CoinName: 
+  neutralSprite: {fileID: 1490326178, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
+  HeadsSprite: {fileID: 1490326178, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
+  TailsSprite: {fileID: -1235933234, guid: ad38981aae334ce48bba5acf15468a9f, type: 3}
   Heads:
-    Value: 6
-    Effects: []
+    Value: 0
+    Effects:
+    - {fileID: 11400000, guid: 43d79cb8c944ac742bafbdfa8bdb3056, type: 2}
   Tails:
-    Value: 3
+    Value: -1
     Effects: []
