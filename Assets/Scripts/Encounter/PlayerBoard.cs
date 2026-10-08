@@ -59,7 +59,7 @@ public class PlayerBoard
     public bool ReturnCoin(int boardIndex)
     {
         //make sure the index is valid
-        if (boardIndex < 0 || boardIndex >= _encounter.AvailableCoins.Count) return false;
+        if (boardIndex < 0 || boardIndex >= _encounter.BoardCoins.Count) return false;
 
         //get the coin
         Coin coin = _encounter.BoardCoins[boardIndex];
@@ -77,7 +77,7 @@ public class PlayerBoard
     public bool RemoveCoin(int boardIndex)
     {
         //make sure the index is valid
-        if (boardIndex < 0 || boardIndex >= _encounter.AvailableCoins.Count) return false;
+        if (boardIndex < 0 || boardIndex >= _encounter.BoardCoins.Count) return false;
 
         //remove the coin from the board
         _encounter.BoardCoins.RemoveAt(boardIndex);
@@ -109,7 +109,7 @@ public class PlayerBoard
     public bool ReflipCoin(int boardIndex)
     {
         //make sure the index is valid
-        if (boardIndex < 0 || boardIndex >= _encounter.AvailableCoins.Count) return false;
+        if (boardIndex < 0 || boardIndex >= _encounter.BoardCoins.Count) return false;
 
         //reflip the selected coin
         _encounter.BoardCoins[boardIndex].Flip();
