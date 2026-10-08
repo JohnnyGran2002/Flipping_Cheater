@@ -24,11 +24,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("GameManager Awake. Instance: " + GetInstanceID());
         //creat the game state
         GameState = new GameState();
-
-        Debug.Log("GameState created: " + (GameState == null ? "NULL" : "VALID"));
 
         //create the player
         GameState.Player = new PlayerState();
@@ -111,9 +108,6 @@ public class GameManager : MonoBehaviour
         //calculate opponent´s points
         GameState.Opponent.Points = _pointCalculator.Calculate(GameState.Opponent.BoardCoins, GameState.Opponent, GameState.Player);
 
-        Debug.Log("NPC Phase sending GameState: " + (GameState == null ? "NULL" : "VALID"));
-        _gameUI.UpdateUI(GameState);
-
         //move on to player phase
         StartPlayerPhase();
     }
@@ -135,8 +129,6 @@ public class GameManager : MonoBehaviour
             GameState.PlayerEncounter.AvailableCoins.Add(coin);
         }
 
-        Debug.Log("Available coins: " + GameState.PlayerEncounter.AvailableCoins.Count);
-
         //create the player's board system
         PlayerBoard = new PlayerBoard(GameState.Player, GameState.PlayerEncounter);
 
@@ -146,8 +138,6 @@ public class GameManager : MonoBehaviour
         //give game UI acces to the GameManager
         _gameUI.Setup(this);
 
-
-        Debug.Log("Player Phase sending GameState: " + (GameState == null ? "NULL" : "VALID"));
         //update the UI
         _gameUI.UpdateUI(GameState);
     }

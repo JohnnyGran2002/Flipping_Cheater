@@ -37,7 +37,6 @@ public class GameUI : MonoBehaviour
     //update UI fron the game state
     public void UpdateUI(GameState state)
     {
-        Debug.Log("GameUI.UpdateUI called. State: " + (state == null ? "NULL" : "VALID"));
 
         if (state == null)
         {
@@ -60,8 +59,6 @@ public class GameUI : MonoBehaviour
     //update what all the coins displays
     private void UpdateCoins(GameState state)
     {
-        Debug.Log("UpdateCoins called");
-
         ClearContainer(_opponentBoardContainer);
         ClearContainer(_playerBoardCointainer);
         ClearContainer(_availableCoinContainer);
@@ -80,7 +77,7 @@ public class GameUI : MonoBehaviour
         }
         Debug.Log("Available coins: " + state.PlayerEncounter.AvailableCoins.Count);
 
-
+        Debug.Log("Player board coins: " + state.PlayerEncounter.BoardCoins.Count);
         //show player's board coins
         foreach (Coin coin in state.PlayerEncounter.BoardCoins)
         {
@@ -147,13 +144,25 @@ public class GameUI : MonoBehaviour
     //flip an available coin form player's temp/ecounter inventory
     private void FlipCoin(int index)
     {
+        Debug.Log("FlipCoin called. Index: " + index);
+
         //check if there is a player board
-        if (_playerBoard == null) return;
+        if (_playerBoard == null)
+        {
+            Debug.LogError("PlayerBoard is NULL.");
+            return;
+        }
+
+        Debug.Log("Before flip - Available: " + _gameManager.GameState.PlayerEncounter.AvailableCoins.Count + " Board: " + _gameManager.GameState.PlayerEncounter.BoardCoins.Count);
 
         //try to flip the coin
-        bool suceess = _playerBoard.FlipCoin(index);
+        bool success = _playerBoard.FlipCoin(index);
 
-        if (!suceess) return;
+        Debug.Log("Flip success: " + success);
+
+        if (!success) return;
+
+        Debug.Log("After flip - Available: " + _gameManager.GameState.PlayerEncounter.AvailableCoins.Count + " Board: " + _gameManager.GameState.PlayerEncounter.BoardCoins.Count);
 
         //refresh the UI
         UpdateUI(_gameManager.GameState);

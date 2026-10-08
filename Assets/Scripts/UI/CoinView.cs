@@ -28,10 +28,18 @@ public class CoinView : MonoBehaviour
         //check if there is a coin
         if (_coin == null) return;
 
+        //show the neutral before coin is flipped
+        if(_coin.CurrentSide == null)
+        {
+            _coinImage.sprite = _coin.Data.neutralSprite;
+            return;
+        }
+
         //show heads image
         if (_coin.CurrentSide == _coin.Data.Heads)
         {
             _coinImage.sprite = _coin.Data.HeadsSprite;
+            return;
         }
         //show tials image
         else if (_coin.CurrentSide == _coin.Data.Tails)

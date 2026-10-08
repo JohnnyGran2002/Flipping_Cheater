@@ -7,6 +7,9 @@ public class CoinData : ScriptableObject
     //the name of the coin
     public string CoinName;
 
+    //sprite for when coin is in player inventory
+    public Sprite neutralSprite;
+
     //sprite for when in lands on heads or tails
     public Sprite HeadsSprite;
     public Sprite TailsSprite;

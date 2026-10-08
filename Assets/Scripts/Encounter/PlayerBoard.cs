@@ -50,6 +50,9 @@ public class PlayerBoard
         //flip the coin
         coin.Flip();
 
+        //add it to the end/most to the right of the board
+        _encounter.BoardCoins.Add(coin);
+
         return true;
     }
 
