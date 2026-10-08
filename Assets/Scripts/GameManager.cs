@@ -69,6 +69,12 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //recalculate the player's current points
+    public void CalculatePlayerPoints()
+    {
+        GameState.Player.Points = _pointCalculator.Calculate(GameState.PlayerEncounter.BoardCoins, GameState.Player, GameState.Opponent);
+    }
+
     //start an encounter
     private void StartEncounter()
     {

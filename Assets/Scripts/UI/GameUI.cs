@@ -56,6 +56,8 @@ public class GameUI : MonoBehaviour
         _playerPointsText.text = "Points: " + state.Player.Points;
     }
 
+
+
     //update what all the coins displays
     private void UpdateCoins(GameState state)
     {
@@ -153,8 +155,6 @@ public class GameUI : MonoBehaviour
             return;
         }
 
-        Debug.Log("Before flip - Available: " + _gameManager.GameState.PlayerEncounter.AvailableCoins.Count + " Board: " + _gameManager.GameState.PlayerEncounter.BoardCoins.Count);
-
         //try to flip the coin
         bool success = _playerBoard.FlipCoin(index);
 
@@ -162,7 +162,7 @@ public class GameUI : MonoBehaviour
 
         if (!success) return;
 
-        Debug.Log("After flip - Available: " + _gameManager.GameState.PlayerEncounter.AvailableCoins.Count + " Board: " + _gameManager.GameState.PlayerEncounter.BoardCoins.Count);
+        _gameManager.CalculatePlayerPoints();
 
         //refresh the UI
         UpdateUI(_gameManager.GameState);
