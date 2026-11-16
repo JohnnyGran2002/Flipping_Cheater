@@ -5,17 +5,17 @@ using Unity.VisualScripting.ReorderableList;
 
 public class GameUI : MonoBehaviour
 {
-    [Header("TMP Texts")]
-    [SerializeField] private TMP_Text _playerPointsText;
+    [Header("TMP Texts")] [SerializeField] private TMP_Text _playerPointsText;
     [SerializeField] private TMP_Text _opponentPointsText;
 
-    [Header("Transforms")]
-    [SerializeField] private Transform _playerBoardCointainer;
+    [Header("Transforms")] [SerializeField]
+    private Transform _playerBoardCointainer;
+
     [SerializeField] private Transform _opponentBoardContainer;
     [SerializeField] private Transform _availableCoinContainer;
 
-    [Header("Coin UI Prefab")]
-    [SerializeField] private CoinView _coinPrefab;
+    [Header("Coin UI Prefab")] [SerializeField]
+    private CoinView _coinPrefab;
 
     private GameManager _gameManager;
 
@@ -74,6 +74,7 @@ public class GameUI : MonoBehaviour
             Debug.Log("PlayerEncounter is null.");
             return;
         }
+
         Debug.Log("Available coins: " + state.PlayerEncounter.AvailableCoins.Count);
 
         Debug.Log("Player board coins: " + state.PlayerEncounter.BoardCoins.Count);
@@ -92,8 +93,6 @@ public class GameUI : MonoBehaviour
             //add the click event later
             AddClickHandler(coinView, i);
         }
-
-
     }
 
     private CoinView CreateCoinView(Coin coin, Transform container)
@@ -164,7 +163,7 @@ public class GameUI : MonoBehaviour
         //refresh the UI
         UpdateUI(_gameManager.GameState);
     }
-    
+
     public void FinishEncounter()
     {
         _gameManager.FinishPlayerPhase();
