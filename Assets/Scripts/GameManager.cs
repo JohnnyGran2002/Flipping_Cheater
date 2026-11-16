@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CoinData playerCoin3Data;
     [SerializeField] private CoinData playerCoin4Data;
     [SerializeField] private CoinData playerCoin5Data;
+    [SerializeField] private CoinData playerCoin6Data;
+    [SerializeField] private CoinData playerCoin7Data;
+    [SerializeField] private CoinData playerCoin8Data;
 
     [SerializeField] private CoinData opponentCoin1Data;
     [SerializeField] private CoinData opponentCoin2Data;
@@ -64,6 +67,9 @@ public class GameManager : MonoBehaviour
         Coin playerCoin3 = new Coin(playerCoin3Data);
         Coin playerCoin4 = new Coin(playerCoin4Data);
         Coin playerCoin5 = new Coin(playerCoin5Data);
+        Coin playerCoin6 = new Coin(playerCoin6Data);
+        Coin playerCoin7 = new Coin(playerCoin7Data);
+        Coin playerCoin8 = new Coin(playerCoin8Data);
 
         //Add player coins to inventory
         GameState.Player.CoinInventory.Add(playerCoin1);
@@ -71,6 +77,9 @@ public class GameManager : MonoBehaviour
         GameState.Player.CoinInventory.Add(playerCoin3);
         GameState.Player.CoinInventory.Add(playerCoin4);
         GameState.Player.CoinInventory.Add(playerCoin5);
+        GameState.Player.CoinInventory.Add(playerCoin6);
+        GameState.Player.CoinInventory.Add(playerCoin7);
+        GameState.Player.CoinInventory.Add(playerCoin8);
 
         //create opponent's coins
         Coin opponentCoin1 = new Coin(opponentCoin1Data);
@@ -130,7 +139,7 @@ public class GameManager : MonoBehaviour
             coin.Flip();
         }
 
-        //calculate opponent´s points
+        //calculate opponentï¿½s points
         GameState.Opponent.Points = _pointCalculator.Calculate(GameState.Opponent.BoardCoins, GameState.Opponent, GameState.Player);
 
         //move on to player phase
@@ -139,7 +148,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    //start the player´s phase
+    //start the players phase
     private void StartPlayerPhase()
     {
         //the player can now flip coins and use abilities
@@ -170,7 +179,7 @@ public class GameManager : MonoBehaviour
     //when player is finished
     public void FinishPlayerPhase()
     {
-        //calculate player´s finalscore
+        //calculate playerï¿½s finalscore
         GameState.Player.Points = _pointCalculator.Calculate(GameState.PlayerEncounter.BoardCoins, GameState.Player, GameState.Opponent);
 
         _gameUI.UpdateUI(GameState);

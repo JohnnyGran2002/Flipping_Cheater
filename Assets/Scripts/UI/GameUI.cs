@@ -37,7 +37,6 @@ public class GameUI : MonoBehaviour
     //update UI fron the game state
     public void UpdateUI(GameState state)
     {
-
         if (state == null)
         {
             Debug.Log("GameUI received a NULL GameState!");
@@ -55,8 +54,6 @@ public class GameUI : MonoBehaviour
 
         _playerPointsText.text = "Points: " + state.Player.Points;
     }
-
-
 
     //update what all the coins displays
     private void UpdateCoins(GameState state)
@@ -166,5 +163,10 @@ public class GameUI : MonoBehaviour
 
         //refresh the UI
         UpdateUI(_gameManager.GameState);
+    }
+    
+    public void FinishEncounter()
+    {
+        _gameManager.FinishPlayerPhase();
     }
 }
